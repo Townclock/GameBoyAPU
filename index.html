@@ -1,0 +1,51 @@
+<html>
+
+<head>
+
+<script type="text/JavaScript" src="audio_context.js"></script>
+<script type="text/JavaScript" src="pulse.js"></script>
+
+</head>
+
+<body>
+
+Channel 1 
+<br>
+<label>frequency</label>
+<input id="channel_1_frequency" type="range" min=0 max=2047 step=1 value=0></input>
+<br>
+<label>sweep shift number</label>
+<input id="channel_1_sweep_shift_number" type="range" min=0 max=7 step=1 value=0></input>
+<br>
+<label>sweep shift time</label>
+<input id="channel_1_sweep_shift_time" type="range" min=0 max=7 step=1 value=0 ></input>
+<br>
+<label>sweep down (default up)</label>
+<input id="channel_1_sweep_direction" type="checkbox" ></input>
+<br>
+
+<br>
+<label> initial volume</label>
+<input id="channel_1_initial_volume" type="range" min=0 max=15 step=1 value=0 ></input>
+<br>
+
+<label>sound length</label>
+<input id="channel_1_sound_length" type="range" min=0 max=63 step=1 value=0 ></input>
+<br>
+<label>envelope down (default up)</label>
+<input id="channel_1_envelope_direction" type="checkbox" ></input>
+<br>
+<label>envelope number</label>
+<input id="channel_1_envelope_number" type="range" min=0 max=7 step=1 value=0></input>
+<br>
+<label>use length</label>
+<input id="channel_1_use_length" type="checkbox" ></input>
+<br>
+
+<label>pulse width</label>
+<input id="channel_1_pulse_width" type="range" min=0 max=3 step=1 value=0 ></input>
+
+<button onclick="read_ui_input()"> Write Control Bits </button>
+</body>
+
+</html>
