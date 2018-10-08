@@ -6,14 +6,21 @@ var real = new Float32Array([0.25, 0.45015815807, 0.31830988618, 0.15005271936, 
 var imag = new Float32Array(real.length);
 var twenty_five_cycle = context.createPeriodicWave(real, imag)
 
+//sequence for 12.5% pulse cycle
 real = new Float32Array([0.125, 0.2436238396, 0.335079079, 0.1960533259, 0.1591549431, 0.1176319955, 0.0750263597, 0.0348034057, 0, -0.0270693155, -0.0450158158]);
 imag = new Float32Array(real.length);
 var twelve_point_five_cycle = context.createPeriodicWave(real, imag)
 
+//sequence for 50% pulse cycle  (comparing this to the default square wave to check if this method of waveform genertion is accurate)
+real = new Float32Array([
+0.5,0.6366197724,0,-0.2122065908,0,0.1273239545,0,-0.0909456818,0,0.0707355303,0,-0.0578745248,0,0.0489707517, 0, -0.0424413182, 0, 0.0374482219, 0, -0.0335063038, 0]);
+imag = new Float32Array(real.length);
+var fifty_cycle = context.createPeriodicWave(real, imag)
+
 
 waveforms = [
-  twelve_point_five_cyce, 
+  twelve_point_five_cycle,
   twenty_five_cycle, 
-  null, 
-  twenty_five_cycle//75% cycle,is audiobly equivalent
+  fifty_cycle,
+  twenty_five_cycle//75% cycle,is audibly equivalent
 ];

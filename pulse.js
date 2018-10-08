@@ -9,6 +9,8 @@ var GameBoyClockSpeed = 4194304; //hertz up to 8.38 on GameBoy Color
 
 var GameBoyI0Registers = 128 // addressed $FF00 to $FF7F in memory
 
+// previous frequency: I think I updated the frequeny too quickly might ead to some distortion, this variable is to only change the output frequency when it should (totally disconnect from the emulation of the APU)
+var previous_frequency = 0
 
 
 var elapsed_cycles = 0;
@@ -44,14 +46,16 @@ function check_apu_update(){    //the apu runs off the same clock unit of the ma
     elapsed_cycles++;
     if (channel_1_frequency_memory > 2047) channel_1_frequency_memory = 2047;
     if (channel_1_frequency_memory < 0) channel_1_frequency_memory = 0;
-    if (channel_1_pulse_width == 2) {pulse.type = 'square';}
-    else {pulse.setPeriodicWave(wave_forms[channel_1_pulse_width])}
+    if (channel_1_pulse_width == 3) {pulse.type = 'square';} // currently using this as a test against a scratch generated square wave (waveform[2])
+    else{pulse.setPeriodicWave(waveforms[channel_1_pulse_width])}
     
-    channel_1_gain_node.gain.value = (channel_1_volume -6) /6
+    channel_1_gain_node.gain.value = (channel_1_volume -6) /6;
 
-    
-    pulse.frequency.value = 131072 / (2048 - channel_1_frequency_memory); // js  does not support the mac frquency that a GameBoy can be set at.pulse.
-
+    if (previous_frequency !== channel_1_frequency_memory)
+    {
+    previous_frequency = channel_1_frequency_memory;
+      pulse.frequency.value = 131072 / (2048 - channel_1_frequency_memory); // js  does not support the maximum frquency that a GameBoy can be set at.
+    }
     if ( (elapsed_cycles % (channel_1_sweep_shift_time*(GameBoyClockSpeed/128))) == 0 && channel_1_sweep_shift_time != 0){ // not going to be accurate to the fractional millesecond
       var old_frequency = Number(channel_1_frequency_memory);
       
@@ -72,7 +76,7 @@ function check_apu_update(){    //the apu runs off the same clock unit of the ma
     }
     //volume envelope
     if (elapsed_cycles % (channel_1_envelope_number*(GameBoyClockSpeed/64)) == 0 && channel_1_envelope_number != 0) {
-      if (channel_1_envelope_direction == 0) {channel_1_volume--;}
+      if (channel_1_envelope_direction == 0) {channel_1_volume-=1;}
       else {channel_1_volume += 1;}
       if (channel_1_volume < 0) channel_1_volume = 0;
       if (channel_1_volume > 15) channel_1_volume = 15; 
