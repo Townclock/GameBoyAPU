@@ -75,12 +75,14 @@ function check_apu_update(){    //the apu runs off the same clock unit of the ma
       if (channel_1_sound_length_counter == 0){channel_1_volume = 0;}
     }
     //volume envelope
-    if (elapsed_cycles % (channel_1_envelope_number*(GameBoyClockSpeed/64)) == 0 && channel_1_envelope_number != 0 && channel_1_sound_length_counter != 0) {
+
+    if (elapsed_cycles % (channel_1_envelope_number*(GameBoyClockSpeed/64)) == 0 && channel_1_envelope_number != 0 && (channel_1_sound_length_counter != 0 || ! channel_1_use_length)) {
       if (channel_1_envelope_direction == 0) {channel_1_volume-=1;}
       else {channel_1_volume += 1;}
       if (channel_1_volume < 0) channel_1_volume = 0;
       if (channel_1_volume > 15) channel_1_volume = 15; 
-      console.log(channel_1_volume)
+
+    console.log(channel_1_volume)
     }
   }
  // console.log(elapsed_cycles);
