@@ -24,3 +24,6 @@ waveforms = [
   fifty_cycle,
   twenty_five_cycle//75% cycle,is audibly equivalent
 ];
+
+
+//need a way to test if the output waveforms are accurate.
