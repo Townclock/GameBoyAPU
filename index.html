@@ -18,23 +18,28 @@ Channel 1
 <span id="channel_1_computed_frequency"></span>
 
 <br>
-<label>sweep shift number</label>
-<input id="channel_1_sweep_shift_number" type="range" min=0 max=7 step=1 value=0></input>
+<label>sweep shift number +-(1/2^mag) per time step</label>
 <br>
-<label>sweep shift time</label>
-<input id="channel_1_sweep_shift_time" type="range" min=0 max=7 step=1 value=0 ></input>
+<input id="channel_1_sweep_magnitude" type="number" min=0 max=7 step=1 value=0></input>
 <br>
+
+<label>sweep shift time (length = t*7.8 ms)</label><br>
+<input id="channel_1_sweep_shift_time" type="number" min=0 max=7 step=1 value=0 ></input>
+<br>
+
+
+
 <label>sweep down (default up)</label>
 <input id="channel_1_sweep_direction" type="checkbox" ></input>
 <br>
 
 <br>
-<label> initial volume</label>
-<input id="channel_1_initial_volume" type="range" min=0 max=15 step=1 value=0 ></input>
+<label> initial volume (0 - 15)</label>
+<input id="channel_1_initial_volume" type="number" min=0 max=15 step=1 value=0 ></input>
 <br>
 
-<label>sound length</label>
-<input id="channel_1_sound_length" type="range" min=0 max=63 step=1 value=0 ></input>
+<label>sound length ([64 - l] / 256 seconds)</label><br>
+<input id="channel_1_sound_length" type="number" min=0 max=63 step=1 value=0 ></input>
 <br>
 <label>envelope up (default down)</label>
 <input id="channel_1_envelope_direction" type="checkbox" ></input>

@@ -106,7 +106,7 @@ function read_ui_input()
   channel_1_sweep_direction = document.getElementById("channel_1_sweep_direction").checked ? 1:0;
     
   // pulse width and sound length use the same register
-  channel_1_sound_length_counter = document.getElementById("channel_1_sound_length").value;
+  channel_1_sound_length_counter = 64 - document.getElementById("channel_1_sound_length").value;
   channel_1_pulse_width = document.getElementById("channel_1_pulse_width").value;
   
   // pulse 1 initial volume
