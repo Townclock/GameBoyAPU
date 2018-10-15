@@ -75,7 +75,7 @@ function check_apu_update(){    //the apu runs off the same clock unit of the ma
       if (channel_1_sound_length_counter == 0){channel_1_volume = 0;}
     }
     //volume envelope
-    if (elapsed_cycles % (channel_1_envelope_number*(GameBoyClockSpeed/64)) == 0 && channel_1_envelope_number != 0) {
+    if (elapsed_cycles % (channel_1_envelope_number*(GameBoyClockSpeed/64)) == 0 && channel_1_envelope_number != 0 && channel_1_sound_length_counter != 0) {
       if (channel_1_envelope_direction == 0) {channel_1_volume-=1;}
       else {channel_1_volume += 1;}
       if (channel_1_volume < 0) channel_1_volume = 0;
@@ -108,7 +108,7 @@ function read_ui_input()
   channel_1_pulse_width = document.getElementById("channel_1_pulse_width").value;
   
   // pulse 1 initial volume
-  channel_1_volume = document.getElementById("channel_1_initial_volume").value;
+  channel_1_volume = Number(document.getElementById("channel_1_initial_volume").value);
   
   // envelope sweep
   channel_1_envelope_direction = document.getElementById("channel_1_envelope_direction").checked ? 1:0
