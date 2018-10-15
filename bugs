@@ -1,0 +1,8 @@
+known bugs:
+
+JS AUDIO API
+
+When frequency is at a high value, and a low value is input, you can hear the pulse channel sweep down from the high value 5
+
+50% uptime pulse waveform does not sound like the API's built in "square" wave form, 25% and 12.5% waveforms are probably also inaccurate.
+
