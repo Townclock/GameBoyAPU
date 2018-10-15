@@ -13,7 +13,10 @@
 Channel 1 
 <br>
 <label>frequency</label>
-<input id="channel_1_frequency" type="range" min=0 max=2047 step=1 value=0></input>
+<input id="channel_1_frequency" type="number" min=0 max=2047 step=1 value=0 onchange="update_ui()"></input>
+
+<span id="channel_1_computed_frequency"></span>
+
 <br>
 <label>sweep shift number</label>
 <input id="channel_1_sweep_shift_number" type="range" min=0 max=7 step=1 value=0></input>

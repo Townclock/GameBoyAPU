@@ -120,6 +120,13 @@ function read_ui_input()
 
 
 
+function update_ui(){
+  document.getElementById("channel_1_computed_frequency").innerHTML = 131072 / (2048 -
+  document.getElementById("channel_1_frequency").value) + 'hz';
+}
+
+
+
 var update_apu = setInterval(check_apu_update, 1);
 
 
