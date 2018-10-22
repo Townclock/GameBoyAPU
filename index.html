@@ -7,12 +7,12 @@
 <script type="text/JavaScript" src="channel_1_pulse.js"></script>
 <script type="text/JavaScript" src="channel_2_pulse.js"></script>
 <script type="text/JavaScript" src="channel_4_noise.js"></script>
-<script type="text/JavaScript" src="main_loop"></script>
+<script type="text/JavaScript" src="main_loop.js"></script>
 
 </head>
 
 <body>
-
+<div style="display:inline-block">
 Channel 1 
 <br>
 <label>frequency</label>
@@ -23,7 +23,7 @@ Channel 1
 <br>
 <label>sweep shift number +-(1/2^mag) per time step</label>
 <br>
-<input id="channel_1_sweep_magnitude" type="number" min=0 max=7 step=1 value=0></input>
+<input id="channel_1_sweep_shift_number" type="number" min=0 max=7 step=1 value=0></input>
 <br>
 
 <label>sweep shift time (length = t*7.8 ms)</label><br>
@@ -43,6 +43,9 @@ Channel 1
 
 <label>sound length ([64 - l] / 256 seconds)</label><br>
 <input id="channel_1_sound_length" type="number" min=0 max=63 step=1 value=0 ></input>
+
+<label>use length</label><br>
+<input id="channel_1_use_length" type="checkbox" ></input>
 <br>
 <label>envelope up (default down)</label>
 <input id="channel_1_envelope_direction" type="checkbox" ></input>
@@ -50,15 +53,44 @@ Channel 1
 <label>envelope number</label>
 <input id="channel_1_envelope_number" type="range" min=0 max=7 step=1 value=0></input>
 <br>
-<label>use length</label>
-<input id="channel_1_use_length" type="checkbox" ></input>
-<br>
 
 <label>pulse width</label>
 <input id="channel_1_pulse_width" type="range" min=0 max=3 step=1 value=0 ></input>
 
-<button onclick="read_ui_input()"> Write Control Bits </button>
+</div>
 
+<div style="display:inline-block">
+Channel 2
+<br>
+<label>frequency</label>
+<input id="channel_2_frequency" type="number" min=0 max=2047 step=1 value=0 onchange="update_ui()"></input>
+
+<span id="channel_2_computed_frequency"></span>
+
+<br>
+<label> initial volume (0 - 15)</label>
+<input id="channel_2_initial_volume" type="number" min=0 max=15 step=1 value=0 ></input>
+<br>
+
+<label>sound length ([64 - l] / 256 seconds)</label>
+<br>
+<input id="channel_2_sound_length" type="number" min=0 max=63 step=1 value=0 ></input>
+<br>
+<label>use length</label>
+<input id="channel_2_use_length" type="checkbox" ></input>
+<br><label>envelope up (default down)</label>
+<input id="channel_2_envelope_direction" type="checkbox" ></input>
+<br>
+<label>envelope number</label>
+<input id="channel_2_envelope_number" type="range" min=0 max=7 step=1 value=0></input>
+<br>
+
+<label>pulse width</label>
+<input id="channel_2_pulse_width" type="range" min=0 max=3 step=1 value=0 ></input>
+
+</div>
+
+<button onclick="read_ui_input()"> Write Control Bits </button>
 </body>
 
 </html>

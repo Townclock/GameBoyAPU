@@ -6,3 +6,18 @@ When frequency is at a high value, and a low value is input, you can hear the pu
 
 50% uptime pulse waveform does not sound like the API's built in "square" wave form, 25% and 12.5% waveforms are probably also inaccurate.
 
+
+Pulse channels use forier transformations to generate pulse shape waves, but
+  pulse shaped waves could likely be shaped with a single bit buffer like noise is
+  with hardware-ish accurate up-times for given frequencies
+
+  sweep shifts are not actuarate to the fractional millesecond
+
+  25% & 75% waveform cycles are not necessarily equivalent
+
+
+PROGRAMMING
+
+No Master Control registers
+
+PAPU state is not stored in a analogous memory structure analogous to the original chip

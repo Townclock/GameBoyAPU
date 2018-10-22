@@ -1,17 +1,7 @@
 
 var context = new AudioContext();
 
-var pulse = context.createOscillator();
-var channel_1_gain_node = context.createGain();
-pulse.connect(channel_1_gain_node);
-channel_1_gain_node.connect(context.destination);
-pulse.type = 'square';
 
-pulse.connect(context.destination);
-
-pulse.frequency.value = 1000;
-
-pulse.start();
 
 //https://noisehack.com/generate-noise-web-audio-api/
 //directly controlling output with script processing node. testing with noise, might be able to use with table waveforms
@@ -29,12 +19,7 @@ var noise_output_bit = noiseBuffer.getChannelData(0);
 
   noise_output_bit[0] = 1;
 
-setInterval(
-  function(){
-//    if (noist_output_bit[0] > 0) {noise_output_bit[0]=-1}
- //   else noise_output_bit[0] = 1;
-  }
-  ,1)
+
 
 var whiteNoise = context.createBufferSource();
 whiteNoise.buffer=noiseBuffer;
