@@ -22,7 +22,6 @@ var pulse_1 = {
 pulse_1.osc.connect(pulse_1.gain);
 pulse_1.gain.connect(context.destination);
 pulse_1.osc.setPeriodicWave(waveforms_1[2]); //setting oscillator to square wave, do not know if this is the default start state
-pulse_1.osc.connect(context.destination);
 pulse_1.osc.frequency.value = 0;
 pulse_1.osc.start();
 
@@ -44,8 +43,8 @@ pulse_1.update_waveform = function(){  // update the waveform being used for thi
   this.osc.setPeriodicWave(waveforms_1[this.pulse_width]);
 }
 
-pulse_1.update_volume = function() {  // update teh volume of this channel
-  this.gain.gain.value = (this.volume -6) /6;
+pulse_1.update_volume = function() {  // update the volume of this channel
+  this.gain.gain.value = this.volume /15;
 }
 
 pulse_1.check_sweep = function(){

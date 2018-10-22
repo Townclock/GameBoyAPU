@@ -1,28 +1,11 @@
-//UNUSED
-var CommandLength = 8; //bit
-var GameBoyMemoryRAM = 8; //kb up to 32kb on GameBoy Color 
-var GameBoyI0Registers = 128 // addressed $FF00 to $FF7F in memory
-
-
-
-//USED
 var GameBoyClockSpeed = 4194304; //hertz up to 8.38 on GameBoy Color
 
 var elapsed_cycles = 0;
 
-
-
-
-
-
-
-
-
-
 function check_apu_update(){    //the apu runs off the same clock unit of the main cpu
   for (var i = 0; i < GameBoyClockSpeed/1000; i++){
     elapsed_cycles++;
-    noise_output_bit[0] = linear_feedback_shift_register [0];
+    noise_4.noise_output_bit[0] = linear_feedback_shift_register [0];
     
 
   pulse_1.update_frequency();
@@ -38,14 +21,18 @@ function check_apu_update(){    //the apu runs off the same clock unit of the ma
   pulse_2.check_length();
   pulse_2.check_envelope();
 
+
+  noise_4.update_volume();
+  noise_4.check_length();
+
   }
 
   //placehoder statement to test noise shift register
-  //if (elapsed_cycles % ((GameBoyClockSpeed/(65536*16))) == 0 )
-   // {noise_output_bit[0] = !noise_output_bit[0];}
-   // linear_feedback_shift_register.push(linear_feedback_shift_register[1] !== linear_feedback_shift_register.shift());
-  //}
+  if (elapsed_cycles % ((GameBoyClockSpeed)) == 0 )
+    {noise_4.noise_output_bit[0] = !noise_4.noise_output_bit[0];}
+    linear_feedback_shift_register.push(linear_feedback_shift_register[1] !== linear_feedback_shift_register.shift());
   
+
 }
 
 
@@ -69,19 +56,24 @@ function read_ui_input()
   pulse_1.envelope_direction = document.getElementById("channel_1_envelope_direction").checked ? 1:0
   pulse_1.envelope_number = document.getElementById("channel_1_envelope_number").value;
   
-  //assuming god like control over the CPU's registers...
   //writing a value to channel one's frequency would take several instructions
   pulse_2.frequency_memory = document.getElementById("channel_2_frequency").value;
   pulse_2.use_length = document.getElementById("channel_2_use_length").checked ? 1:0;
   // pulse width and sound length use the same register
   pulse_2.sound_length_counter = 64 - document.getElementById("channel_2_sound_length").value;
   pulse_2.pulse_width = document.getElementById("channel_2_pulse_width").value;
-  // pulse 1 initial volume
+  // pulse 2 initial volume
   pulse_2.volume = Number(document.getElementById("channel_2_initial_volume").value);
   // envelope sweep
   pulse_2.envelope_direction = document.getElementById("channel_2_envelope_direction").checked ? 1:0
   pulse_2.envelope_number = document.getElementById("channel_2_envelope_number").value;
   
+
+
+  noise_4.use_length = document.getElementById("channel_4_use_length").checked ? 1:0;
+  noise_4.sound_length_counter = 64 - document.getElementById("channel_4_sound_length").value;
+
+
   console.log("read ui")
 }
 

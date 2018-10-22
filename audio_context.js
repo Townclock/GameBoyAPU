@@ -13,6 +13,7 @@ var context = new AudioContext();
 
 // A custom buffer might be able emulate the custom wave table for channel 3
 
+/*
 var bufferSize = 1;
 var noiseBuffer = context.createBuffer(1, bufferSize, context.sampleRate);
 var noise_output_bit = noiseBuffer.getChannelData(0);
@@ -27,5 +28,5 @@ whiteNoise.loop=true;
 whiteNoise.start(0);
 
 whiteNoise.connect(context.destination);
-
+*/
 
