@@ -14,7 +14,7 @@ noise_4 = {
 
   gain : context.createGain(),
 
-  volume: 15,
+  volume: 0,
   use_length : 0,
   sound_length_counter : 0,
 

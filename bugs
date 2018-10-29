@@ -18,6 +18,7 @@ sweep shifts are not actuarate to the fractional millesecond
 ***** Lots of click/popping: I think this is due to using js to update it with a timer or some such
 
 
+**** I don't know if the frequency on wave channel is per step or per pattern
 
 PROGRAMMING
 
