@@ -51,12 +51,14 @@ pulse_1.check_sweep = function(){
   if ( (elapsed_cycles % (this.sweep_shift_time*(GameBoyClockSpeed/128))) == 0 && this.sweep_shift_time != 0){
   // not going to be accurate to the fractional millesecond
     var old_frequency = Number(this.frequency_memory);
+    console.log(this.frequency_memory);
     if (this.sweep_direction) {
-      this.frequency_memory = old_frequency - (old_frequency / Math.pow(2, this.weep_shift_number));
+      this.frequency_memory = old_frequency - (old_frequency / Math.pow(2, this.sweep_shift_number));
     }
     else {
       this.frequency_memory = old_frequency + (old_frequency / Math.pow(2, this.sweep_shift_number));
     }
+
   }
 }
 
@@ -66,6 +68,7 @@ pulse_1.check_length = function(){
     if (elapsed_cycles % (GameBoyClockSpeed/256) == 0 && this.use_length){
           // again not going to be accurate to the fractional millesecond
       this.sound_length_counter--;
+      console.log(this.sound_length_counter)
       if (this.sound_length_counter < 0) {this.sound_length_counter = 0;}
       if (this.sound_length_counter == 0){this.volume = 0;}
     }

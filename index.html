@@ -77,13 +77,34 @@ Channel 2
 
 <div style="display:inline-block">
 Channel 4
-
+<br>
+<label> initial volume (0 - 15)</label>
+<input id="channel_4_initial_volume" type="number" min=0 max=15 step=1 value=0 ></input>
+<br>
 <input id="channel_4_sound_length" type="number" min=0 max=63 step=1 value=0 ></input>
 <br>
 <label>use length</label>
 <input id="channel_4_use_length" type="checkbox" ></input>
+<br><label>envelope up (default down)</label>
+<input id="channel_4_envelope_direction" type="checkbox" ></input>
+<br>
+<label>envelope number</label>
+<input id="channel_4_envelope_number" type="range" min=0 max=7 step=1 value=0></input>
+<br>
+<label>LFSR bit width (default 15, otherwise 7)</label>
+<input id="channel_4_lfsr_bit_width" type="checkbox" ></input>
+<br>
+<p> the frequency of the noise (bit samples) is 524288 hz / R / 2^(s+1)</p>
+<label> Dividing <strong>R</strong>atio of frequencies [0(defaults to .5), 1, 2, 3, 4, 5, 6, 7]</label>
+<input id="channel_4_dividing_ratio" type="number" min=0 max=7 step=1 value=0 ></input><br>
+<label> <strong>S</strong>hift Clock Frequency (1 - 16)</label>
+<input id="channel_4_shift_clock_frequency" type="number" min=1 max=16 step=1 value=1 ></input>
+<br>
+
 
 </div>
+
+
 
 <button onclick="read_ui_input()"> Write Control Bits </button>
 </body>

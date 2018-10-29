@@ -1,11 +1,25 @@
 var GameBoyClockSpeed = 4194304; //hertz up to 8.38 on GameBoy Color
 
+var SoundUpdateDelay = 1; // changes in PAPU memory will be audibly expressed
+                          // after one second
+
 var elapsed_cycles = 0;
+
+get_scheduling_time = function(){
+  var time = context.currentTime + SoundUpdateDelay + (elapsed_cycles * 0.000004194304 );
+ // console.log(context.currentTime/time);
+  return time;
+}
+
+
 
 function check_apu_update(){    //the apu runs off the same clock unit of the main cpu
   for (var i = 0; i < GameBoyClockSpeed/1000; i++){
+
+    var update_time = get_scheduling_time();
+
     elapsed_cycles++;
-    noise_4.noise_output_bit[0] = linear_feedback_shift_register [0];
+    gain_bit = linear_feedback_shift_register [0];
     
 
   pulse_1.update_frequency();
@@ -22,17 +36,21 @@ function check_apu_update(){    //the apu runs off the same clock unit of the ma
   pulse_2.check_envelope();
 
 
-  noise_4.update_volume();
+  noise_4.update_volume(update_time);
   noise_4.check_length();
+  noise_4.check_envelope();
 
+if (elapsed_cycles % (8 * noise_4.dividing_ratio * noise_4.shift_clock_frequency) == 0){
+    noise_4.output_buffer.getChannelData(0)[noise_4.write_loc + 1] = linear_feedback_shift_register[0];
+    noise_4.write_loc++;
+
+    if (noise_4.write_loc >=  1048576) {noise_4.write_loc = 0;};
+    }
+    linear_feedback_shift_register.push(linear_feedback_shift_register[1] !==
+    linear_feedback_shift_register.shift()? 1: 0);
+    if (noise_4.lfsr_bit_width) {linear_feedback_shift_register[6] = linear_feedback_shift_register[14]}
   }
-
-  //placehoder statement to test noise shift register
-  if (elapsed_cycles % ((GameBoyClockSpeed)) == 0 )
-    {noise_4.noise_output_bit[0] = !noise_4.noise_output_bit[0];}
-    linear_feedback_shift_register.push(linear_feedback_shift_register[1] !== linear_feedback_shift_register.shift());
   
-
 }
 
 
@@ -69,10 +87,21 @@ function read_ui_input()
   pulse_2.envelope_number = document.getElementById("channel_2_envelope_number").value;
   
 
-
+  noise_4.volume = Number(document.getElementById("channel_4_initial_volume").value);
   noise_4.use_length = document.getElementById("channel_4_use_length").checked ? 1:0;
   noise_4.sound_length_counter = 64 - document.getElementById("channel_4_sound_length").value;
+  noise_4.envelope_direction = document.getElementById("channel_4_envelope_direction").checked ? 1:0
+  noise_4.envelope_number = document.getElementById("channel_4_envelope_number").value;
 
+  noise_4.lfsr_bit_width = document.getElementById("channel_4_lfsr_bit_width").checked ? 1:0
+  noise_4.dividing_ratio = Number(document.getElementById("channel_4_dividing_ratio").value);
+  noise_4.shift_clock_frequency = Number(document.getElementById("channel_4_shift_clock_frequency").value);
+
+  if (noise_4.dividing_ratio == 0) {noise_4.dividing_ratio = 0.5;}
+
+  noise_4.noise_player.playbackRate.value = 11.8886167801 / noise_4.dividing_ratio /noise_4.shift_clock_frequency;
+  // this is a frequency of 524288 1/8 of the main clock
+  // we need to both read and write to the noise buffer at the same frequency
 
   console.log("read ui")
 }
