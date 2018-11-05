@@ -1,59 +1,56 @@
 var GameBoyClockSpeed = 4194304; //hertz up to 8.38 on GameBoy Color
 
-var SoundUpdateDelay = 1; // changes in PAPU memory will be audibly expressed
+ var SoundUpdateDelay = 1; // changes in PAPU memory will be audibly expressed
                           // after one second
 
 var elapsed_cycles = 0;
 
 get_scheduling_time = function(){
-  var time = context.currentTime + SoundUpdateDelay + (elapsed_cycles * 0.000004194304 );
+  var time = context.currentTime + SoundUpdateDelay + (elapsed_cycles % (GameBoyClockSpeed/1000) * 0.000004194304 );
  // console.log(context.currentTime/time);
   return time;
 }
 
-
+var update_time = get_scheduling_time();
 
 function check_apu_update(){    //the apu runs off the same clock unit of the main cpu
   for (var i = 0; i < GameBoyClockSpeed/1000; i++){
-
-    var update_time = get_scheduling_time();
-
     elapsed_cycles++;
-    gain_bit = linear_feedback_shift_register [0];
     
+    update_time = get_scheduling_time();
 
-  pulse_1.update_frequency();
-  pulse_1.update_waveform();
-  pulse_1.update_volume();
-  pulse_1.check_sweep();
-  pulse_1.check_length();
-  pulse_1.check_envelope();
+    pulse_1.update_frequency();
+    pulse_1.update_waveform();
+    pulse_1.update_volume();
+    pulse_1.check_sweep();
+    pulse_1.check_length();
+    pulse_1.check_envelope();
 
-  pulse_2.update_frequency();
-  pulse_2.update_waveform();
-  pulse_2.update_volume();
-  pulse_2.check_length();
-  pulse_2.check_envelope();
-
-
-  noise_4.update_volume(update_time);
-  noise_4.check_length();
-  noise_4.check_envelope();
-//noise test zone
-  if (elapsed_cycles % (8 * noise_4.dividing_ratio * noise_4.shift_clock_frequency) == 0){
-    noise_4.output_buffer.getChannelData(0)[noise_4.write_loc + 1] = linear_feedback_shift_register[0];
-    noise_4.write_loc++;
-
-    if (noise_4.write_loc >=  1048576) {noise_4.write_loc = 0;};
-    }
-    linear_feedback_shift_register.push(linear_feedback_shift_register[1] !==
-    linear_feedback_shift_register.shift()? 1: 0);
-    if (noise_4.lfsr_bit_width) {linear_feedback_shift_register[6] = linear_feedback_shift_register[14]}
+    pulse_2.update_frequency();
+    pulse_2.update_waveform();
+    pulse_2.update_volume();
+    pulse_2.check_length();
+    pulse_2.check_envelope();
 
 
-  wave_3.update_volume();
-  wave_3.update_frequency();
-  wave_3.check_length();
+    noise_4.update_volume();
+    noise_4.check_length();
+    noise_4.check_envelope();
+  //noise test zone
+    if (elapsed_cycles % (8 * noise_4.dividing_ratio * noise_4.shift_clock_frequency) == 0){
+      noise_4.output_buffer.getChannelData(0)[noise_4.write_loc + 1] = linear_feedback_shift_register[0];
+      noise_4.write_loc++;
+
+      if (noise_4.write_loc >=  1048576) {noise_4.write_loc = 0;};
+      }
+      linear_feedback_shift_register.push(linear_feedback_shift_register[1] !==
+      linear_feedback_shift_register.shift()? 1: 0);
+      if (noise_4.lfsr_bit_width) {linear_feedback_shift_register[6] = linear_feedback_shift_register[14]}
+
+
+    wave_3.update_volume();
+    wave_3.update_frequency();
+    wave_3.check_length();
   }
 
 

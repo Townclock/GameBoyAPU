@@ -44,14 +44,17 @@ noise_4 = {
 
 var linear_feedback_shift_register = [1,1,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
-noise_4.update_volume = function(update_time) {  // update the volume of this channel
-  this.gain.gain.value = this.volume/15;
+noise_4.update_frequency = function(){
 
-//  this.gain.gain.setValueAtTime(gain_bit, update_time);
+}
+
+noise_4.update_volume = function() {  // update the volume of this channel
+  this.gain.gain.setValueAtTime( this.volume/15, get_scheduling_time())
+
 
 }
 noise_4.check_length = function(){
-    // decrement time for sound length
+    // decrement time for length
     //http://gbdev.gg8.se/wiki/articles/Gameboy_sound_hardware#Length_Counter
     if (elapsed_cycles % (GameBoyClockSpeed/256) == 0 && this.use_length){
           // again not going to be accurate to the fractional millesecond
