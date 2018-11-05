@@ -49,7 +49,7 @@ noise_4.update_frequency = function(){
 }
 
 noise_4.update_volume = function() {  // update the volume of this channel
-  this.gain.gain.setValueAtTime( this.volume/15, get_scheduling_time())
+  this.gain.gain.value = this.volume;
 
 
 }
