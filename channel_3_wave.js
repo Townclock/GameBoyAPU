@@ -29,8 +29,8 @@ wave_3 = {
 
   volume: 0, // 0, 25, 50, 100%
 
-  use_length : 0, // 0-255
-  sound_length_counter : 0,
+  use_length : 0,
+  sound_length_counter : 0, // 0-255
 
   frequency: 2047, // 11 bit higher is higher frequency
 
@@ -60,7 +60,7 @@ wave_3.update_volume = function() {  // update the volume of this channel
 wave_3.update_frequency = function(){
   this.wave_player.playbackRate.value =
   calculate_play_back_rate_from_frequency(32*65536/(2048 -this.frequency))//- this.frequency));
-  console.log(this.wave_player.playbackRate.value)
+  //console.log(this.wave_player.playbackRate.value)
   }
 
 //WORKS DIFFERENTLY THAN THE OTHER 3 CHANNELS!!!!!

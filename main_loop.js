@@ -49,12 +49,16 @@ function check_apu_update(){    //the apu runs off the same clock unit of the ma
     linear_feedback_shift_register.push(linear_feedback_shift_register[1] !==
     linear_feedback_shift_register.shift()? 1: 0);
     if (noise_4.lfsr_bit_width) {linear_feedback_shift_register[6] = linear_feedback_shift_register[14]}
-  }
 
 
   wave_3.update_volume();
   wave_3.update_frequency();
-  // waveform test zone!
+  wave_3.check_length();
+  }
+
+
+
+// waveform test zone!
   for (var i = 0; i < 32; i++)
     wave_3.output_buffer.getChannelData(0)[i] = triangle[i];
 }
