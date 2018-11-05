@@ -50,11 +50,13 @@ function check_apu_update(){    //the apu runs off the same clock unit of the ma
     linear_feedback_shift_register.shift()? 1: 0);
     if (noise_4.lfsr_bit_width) {linear_feedback_shift_register[6] = linear_feedback_shift_register[14]}
   }
+
+
+  wave_3.update_volume();
+  wave_3.update_frequency();
   // waveform test zone!
   for (var i = 0; i < 32; i++)
-    wave_3.output_buffer.getChannelData(0)[i] = saw[i];
-  wave_3.wave_player.playbackRate.value =
-  calculate_play_back_rate_from_frequency(32*65536/(2048 - 100));
+    wave_3.output_buffer.getChannelData(0)[i] = triangle[i];
 }
 
 
@@ -90,6 +92,14 @@ function read_ui_input()
   pulse_2.envelope_direction = document.getElementById("channel_2_envelope_direction").checked ? 1:0
   pulse_2.envelope_number = document.getElementById("channel_2_envelope_number").value;
   
+
+  wave_3.frequency = Number(document.getElementById("channel_3_frequency").value);
+  wave_3.use_length = document.getElementById("channel_3_use_length").checked ? 1:0;
+  wave_3.sound_length_counter = 256 - document.getElementById("channel_3_sound_length").value;
+
+  wave_3.volume = Number(document.getElementById("channel_3_volume").value);
+
+
 
   noise_4.volume = Number(document.getElementById("channel_4_initial_volume").value);
   noise_4.use_length = document.getElementById("channel_4_use_length").checked ? 1:0;

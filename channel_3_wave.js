@@ -47,6 +47,22 @@ wave_3 = {
   wave_3.wave_player.start(0);
 
 
+wave_3.update_volume = function() {  // update the volume of this channel
+  if (this.volume == 0)
+    this.gain.gain.value = 0;
+  if (this.volume == 1)
+    this.gain.gain.value = 0.25;
+  if (this.volume == 2)
+    this.gain.gain.value = 0.5;
+  if (this.volume == 3)
+    this.gain.gain.value = 1;
+}
+wave_3.update_frequency = function(){
+  this.wave_player.playbackRate.value =
+  calculate_play_back_rate_from_frequency(32*65536/(2048 -this.frequency))//- this.frequency));
+  console.log(this.wave_player.playbackRate.value)
+  }
+
 //WORKS DIFFERENTLY THAN THE OTHER 3 CHANNELS!!!!!
 wave_3.check_length = function(){
     // decrement time for sound length
@@ -59,16 +75,7 @@ wave_3.check_length = function(){
     }
 }
 
-wave_3.check_envelope = function(){
-    //volume envelope
-    if (elapsed_cycles % (this.envelope_number*(GameBoyClockSpeed/64)) == 0 && this.envelope_number != 0 && (this.sound_length_counter != 0 || ! this.use_length)) {
-      if (this.envelope_direction == 0) {this.volume-=1;}
-      else {this.volume += 1;}
-      if (this.volume < 0) this.volume = 0;
-      if (this.volume > 15) this.volume = 15;
 
-    console.log(this.volume)
-    }
-}
+
 
 console.log("Wave Three Loaded");
