@@ -40,6 +40,7 @@ wave_3 = {
   wave_3.wave_player.connect(wave_3.gain);
   wave_3.gain.connect(context.destination);
 
+  wave_3.gain.gain.value = 0;
   wave_3.wave_player.playbackRate.value = 1; // this will need to be modified by frequency 
                                               // in an update-frequency function
                                               // defaults at 44100

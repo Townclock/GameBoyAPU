@@ -15,7 +15,7 @@ noise_4 = {
   gain : context.createGain(),
 
   volume: 0,
-  previous_volume:0,
+  previous_volume:1,
   use_length : 0,
   sound_length_counter : 0,
 
@@ -34,7 +34,7 @@ noise_4 = {
   noise_4.noise_player.loop = true;
   noise_4.noise_player.connect(noise_4.gain);
   noise_4.gain.connect(context.destination);
-
+  noise_4.gain.gain.value = 0;
   noise_4.noise_player.playbackRate.value = 23.7772335601;
 
   noise_4.noise_player.start(0);

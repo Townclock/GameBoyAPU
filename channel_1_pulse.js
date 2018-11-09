@@ -26,6 +26,8 @@ pulse_1.osc.setPeriodicWave(waveforms_1[2]); //setting oscillator to square wave
 pulse_1.osc.frequency.value = 0;
 pulse_1.osc.start();
 
+pulse_1.gain.gain.value = 0;
+
 // Pulse Channel Functions
 
 pulse_1.update_frequency = function(){ // update the frequency being played by this pulse channel
