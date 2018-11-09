@@ -14,6 +14,7 @@ var pulse_1 = {
   sound_length_counter : 0,//5 bit 0-31  calculation for length is (64-t)/256 seconds (~4*(64-6)ms)
   use_length : 0, // bit 6 in NR14
   volume : 0, // bits 7-4 of FF12 - NR 12
+  previous_volume: 1,
   envelope_direction : 0, // bit 3 FF12 - NR12 0:decrease volume 1: increase
   envelope_number : 0, // bits 2-0 (volume time steps = n/64)
 }
@@ -34,8 +35,9 @@ pulse_1.update_frequency = function(){ // update the frequency being played by t
   if (this.previous_frequency !== this.frequency_memory)
   {
     this.previous_frequency = this.frequency_memory;
-    this.osc.frequency.value = 131072 / (2048 - this.frequency_memory);
+    this.osc.frequency.setValueAtTime( 131072 / (2048 - this.frequency_memory), update_time);
     // js  does not support the maximum frquency that a GameBoy can be set at.
+    console.log(get_scheduling_time());
   }
 }
 
@@ -44,7 +46,10 @@ pulse_1.update_waveform = function(){  // update the waveform being used for thi
 }
 
 pulse_1.update_volume = function() {  // update the volume of this channel
-  this.gain.gain.value = this.volume /15;
+    if (this.volume !== this.previous_volume){
+      this.previous_volume = this.volume;
+    this.gain.gain.setValueAtTime( this.volume/15, update_time)
+  }
 }
 
 pulse_1.check_sweep = function(){

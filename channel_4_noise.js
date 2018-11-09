@@ -15,6 +15,7 @@ noise_4 = {
   gain : context.createGain(),
 
   volume: 0,
+  previous_volume:0,
   use_length : 0,
   sound_length_counter : 0,
 
@@ -44,13 +45,11 @@ noise_4 = {
 
 var linear_feedback_shift_register = [1,1,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
-noise_4.update_frequency = function(){
-
-}
-
 noise_4.update_volume = function() {  // update the volume of this channel
-  this.gain.gain.value = this.volume;
-
+    if (this.volume !== this.previous_volume){
+      this.previous_volume = this.volume;
+      this.gain.gain.setValueAtTime(this.volume/15, update_time);
+   }
 
 }
 noise_4.check_length = function(){
@@ -72,7 +71,7 @@ noise_4.check_envelope = function(){
       if (this.volume < 0) this.volume = 0;
       if (this.volume > 15) this.volume = 15;
 
-    console.log(this.volume)
+    console.log(this.volume, this.previous_volume)
     }
 }
 

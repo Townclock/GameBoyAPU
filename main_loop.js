@@ -40,7 +40,6 @@ function check_apu_update(){    //the apu runs off the same clock unit of the ma
     if (elapsed_cycles % (8 * noise_4.dividing_ratio * noise_4.shift_clock_frequency) == 0){
       noise_4.output_buffer.getChannelData(0)[noise_4.write_loc + 1] = linear_feedback_shift_register[0];
       noise_4.write_loc++;
-
       if (noise_4.write_loc >=  1048576) {noise_4.write_loc = 0;};
       }
       linear_feedback_shift_register.push(linear_feedback_shift_register[1] !==

@@ -28,12 +28,12 @@ wave_3 = {
   gain : context.createGain(),
 
   volume: 0, // 0, 25, 50, 100%
-
+  previous_volume : 1,
   use_length : 0,
   sound_length_counter : 0, // 0-255
 
   frequency: 2047, // 11 bit higher is higher frequency
-
+  previous_frequency : 2047,
 }
   wave_3.wave_player.buffer = wave_3.output_buffer;
   wave_3.wave_player.loop = true;
@@ -48,19 +48,27 @@ wave_3 = {
 
 
 wave_3.update_volume = function() {  // update the volume of this channel
-  if (this.volume == 0)
-    this.gain.gain.value = 0;
-  if (this.volume == 1)
-    this.gain.gain.value = 0.25;
-  if (this.volume == 2)
-    this.gain.gain.value = 0.5;
-  if (this.volume == 3)
-    this.gain.gain.value = 1;
+    if (this.volume !== this.previous_volume){
+      this.previous_volume = this.volume;
+    if (this.volume == 0)
+      this.gain.gain.setValueAtTime( 0, update_time)
+    if (this.volume == 1)
+      this.gain.gain.setValueAtTime( 0.25, update_time)
+    if (this.volume == 2)
+      this.gain.gain.setValueAtTime( 0.50, update_time)
+    if (this.volume == 3)
+      this.gain.gain.setValueAtTime( 1, update_time)
+  }
 }
 wave_3.update_frequency = function(){
-  this.wave_player.playbackRate.value =
-  calculate_play_back_rate_from_frequency(32*65536/(2048 -this.frequency))//- this.frequency));
-  //console.log(this.wave_player.playbackRate.value)
+  if (this.frequency !== this.previous_frequency){
+    this.previous_frequency = this.frequency;
+    this.wave_player.playbackRate.setValueAtTime(
+    calculate_play_back_rate_from_frequency(32*65536/(2048 -this.frequency))
+    , update_time)
+  }
+
+ // console.log(this.wave_player.playbackRate.value)
   }
 
 //WORKS DIFFERENTLY THAN THE OTHER 3 CHANNELS!!!!!
