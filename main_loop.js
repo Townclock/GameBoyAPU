@@ -37,7 +37,7 @@ function check_apu_update(){    //the apu runs off the same clock unit of the ma
     noise_4.check_length();
     noise_4.check_envelope();
   //noise test zone
-    if (elapsed_cycles % (8 * noise_4.dividing_ratio * noise_4.shift_clock_frequency) == 0){
+    if (elapsed_cycles % (8 * noise_4.dividing_ratio * Math.pow(2, noise_4.shift_clock_frequency)) == 0){
       noise_4.output_buffer.getChannelData(0)[noise_4.write_loc + 1] = linear_feedback_shift_register[0];
       noise_4.write_loc++;
       if (noise_4.write_loc >=  1048576) {noise_4.write_loc = 0;};
@@ -113,7 +113,7 @@ function read_ui_input()
 
   if (noise_4.dividing_ratio == 0) {noise_4.dividing_ratio = 0.5;}
 
-  noise_4.noise_player.playbackRate.value = 11.8886167801 / noise_4.dividing_ratio /noise_4.shift_clock_frequency;
+  noise_4.noise_player.playbackRate.value = 11.8886167801 / noise_4.dividing_ratio /Math.pow(2, noise_4.shift_clock_frequency);
   // this is a frequency of 524288 1/8 of the main clock
   // we need to both read and write to the noise buffer at the same frequency
 
