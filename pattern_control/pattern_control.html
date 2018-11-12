@@ -1,0 +1,39 @@
+<html>
+
+<head>
+
+<script type="text/JavaScript" src="../audio_context.js"></script>
+<script type="text/JavaScript" src="../pulse_wave_forms.js"></script>
+<script type="text/JavaScript" src="../channel_1_pulse.js"></script>
+<script type="text/JavaScript" src="../channel_2_pulse.js"></script>
+<script type="text/JavaScript" src="../channel_3_wave.js"></script>
+<script type="text/JavaScript" src="../channel_4_noise.js"></script>
+<script type="text/JavaScript" src="../main_loop.js"></script>
+
+
+
+</head>
+
+<body>
+
+<button id="play" onclick="play_pattern()">PLAY </button>
+<button id="stop" onclick="stop_playing()">STOP </button>
+<input id="tempo" type="number" min=1 max=400 step=1 value=120></input>
+<hr>
+
+<table id="control_table">
+</table>
+
+
+</body>
+
+<style> 
+    #control_table {
+        width: 100%
+    }
+</style>
+
+<script type="text/JavaScript" src="pattern_control_initialize.js"></script>
+<script type="text/JavaScript" src="input_interpreter.js"></script>
+
+</html>

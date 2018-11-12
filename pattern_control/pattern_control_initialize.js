@@ -1,32 +1,3 @@
-<html>
-
-<head>
-
-<script type="text/JavaScript" src="audio_context.js"></script>
-<script type="text/JavaScript" src="pulse_wave_forms.js"></script>
-<script type="text/JavaScript" src="channel_1_pulse.js"></script>
-<script type="text/JavaScript" src="channel_2_pulse.js"></script>
-<script type="text/JavaScript" src="channel_3_wave.js"></script>
-<script type="text/JavaScript" src="channel_4_noise.js"></script>
-<script type="text/JavaScript" src="main_loop.js"></script>
-
-</head>
-
-<body>
-
-<button id="play" onclick="play_pattern()">PLAY </button>
-<button id="stop" onclick="stop_playing()">STOP </button>
-<input id="tempo" type="number" min=1 max=400 step=1 value=120></input>
-<hr>
-
-<table id="control_table">
-</table>
-
-
-</body>
-
-
-<script>
 var initialize = false;
 var fill_table = function(current_pattern) {
     if (initialize){
@@ -51,14 +22,12 @@ var fill_table = function(current_pattern) {
 
     var table_contents = "";
     for (var j = 0; j < 32; j++){
-        console.log(patterns);
-        console.log(current_patterns);
-        console.log(patterns[1][1][0]);
         table_contents = table_contents + "<tr id=row_" + j + ">" + 
-        "<td>" + patterns[1][current_patterns[1]][j] + "</td>"+
-        "<td>" + patterns[2][current_patterns[2]][j] + "</td>"+
-        "<td>" + patterns[3][current_patterns[3]][j] + "</td>"+
-        "<td>" + patterns[4][current_patterns[4]][j] + "</td>"+"</tr>"
+        "<td><input type='text' onchange='setValue(1, "+j+")' id='ch1_" + j + "' value='" + patterns[1][current_patterns[1]][j] + "'></input></td>"+
+        "<td><input type='text' onchange='setValue(2, "+j+")' id='ch2_" + j + "' value='" + patterns[2][current_patterns[2]][j] + "'></input></td>"+
+        "<td><input type='text' onchange='setValue(3, "+j+")' id='ch3_" + j + "' value='" + patterns[3][current_patterns[3]][j] + "'></input></td>"+
+        "<td><input type='text' onchange='setValue(4, "+j+")' id='ch4_" + j + "' value='" + patterns[4][current_patterns[4]][j] + "'></input></td>"+
+        "</tr>"
     }
     document.getElementById('control_table').innerHTML = table_header + table_contents;
         
@@ -76,6 +45,16 @@ var fill_table = function(current_pattern) {
     document.getElementById('pattern_4').value = current_patterns[4];
     
 }
+var setValue = function(channel, note){
+        var new_note = (document.getElementById("ch" +channel+"_" +  note).value);
+        document.getElementById("ch4_" +  current_step).innerHTML = new_note;
+        console.log(channel, note
+        , document.getElementById("ch" +channel+"_" +  note).value);
+
+
+        patterns[channel][current_patterns[channel]][note] = new_note;
+}
+
 
 var tempo;
 var playing_interval;
@@ -90,19 +69,10 @@ var play_pattern = function(){
         document.getElementById('row_' + current_step).style.backgroundColor = "#87678c";
         document.getElementById('row_' + current_step).style.color = "white";
     
-    
-  noise_4.volume = Number(15);
-  noise_4.envelope_number = 1;
-  noise_4.sound_length_counter = 64 - 62
-  noise_4.use_length = 1;
-  noise_4.lfsr_bit_width = 0
-  noise_4.dividing_ratio = Number(0);
-  noise_4.shift_clock_frequency = Number(4);
-  if (noise_4.dividing_ratio == 0) {noise_4.dividing_ratio = 0.5;}
-
-  noise_4.noise_player.playbackRate.value = 11.8886167801 / noise_4.dividing_ratio /
-    Math.pow(2, noise_4.shift_clock_frequency);
-
+        interpret_channel_1(); 
+        interpret_channel_2(); 
+        interpret_channel_3(); 
+        interpret_channel_4(); 
     }, 1000 / ( tempo / 60))
     
 }
@@ -129,7 +99,7 @@ var patterns = []
         for (var i = 0; i < 34; i++){
         patterns[j][patterns_available[i]] = [];
             for (var k=0; k < 32; k++)
-                patterns[j][patterns_available[i]][k] = "word" + i + k
+                patterns[j][patterns_available[i]][k] = '-' ;//15; //patterns_available[i] + k
         }
     }
 
@@ -138,14 +108,3 @@ fill_table();
 
 var current_step = 0; //setting this up for visualyzing either
 var selection = "";
-
-
-</script>
-
-<style> 
-    #control_table {
-        width: 100%
-    }
-</style>
-
-</html>
