@@ -5,6 +5,7 @@ envelope_direction: 0-1 (down/up)
 envelope: 0-f
 use_length: 0 - 1
 length: 01 - 64
+pulse_length: 0 - 3
 sweep_direction: 0 - 1
 sweep_shift_numner: 0 - 8
 sweep_speed: 0 - 8
@@ -22,11 +23,12 @@ var interpret_channel_1 = function(){
     pulse_1.envelope_number = parseInt(pulse_1_input[5], 16);
     pulse_1.use_length = parseInt(pulse_1_input[6], 2);
     pulse_1.sound_length_counter = parseInt(Number(pulse_1_input[7] + "" + pulse_1_input[8], 64) + 1);
+    pulse_1.pulse_width = parseInt(pulse_1_input[9], 4);
 
 
-    pulse_1.sweep_direction = parseInt(pulse_1_input[9], 2);
-    pulse_1.sweep_shift_number = parseInt(pulse_1_input[10], 8);
-    pulse_1.sweep_shift_time = parseInt(pulse_1_input[11], 8);
+    pulse_1.sweep_direction = parseInt(pulse_1_input[10], 2);
+    pulse_1.sweep_shift_number = parseInt(pulse_1_input[11], 8);
+    pulse_1.sweep_shift_time = parseInt(pulse_1_input[12], 8);
 
 }
 /* key
@@ -36,6 +38,7 @@ envelope_direction: 0-1 (down/up)
 envelope: 0-f
 use_length: 0 - 1
 length: 01 - 64
+pulse_length: 0 - 3
 */
 var interpret_channel_2 = function(){
     pulse_2_input = document.getElementById("ch2_"+current_step).value;
@@ -48,6 +51,7 @@ var interpret_channel_2 = function(){
     pulse_2.envelope_number = parseInt(pulse_2_input[5], 16);
     pulse_2.use_length = parseInt(pulse_2_input[6], 2);
     pulse_2.sound_length_counter = parseInt(Number(pulse_2_input[7] + "" + pulse_2_input[8], 64) + 1);
+    pulse_2.pulse_width = parseInt(pulse_2_input[9], 4);
 
 }
 
