@@ -1,4 +1,5 @@
 var initialize = false;
+var custom_waveforms = [saw, triangle, square];
 var fill_table = function(current_pattern) {
     if (initialize){
         current_patterns[1] = document.getElementById('pattern_1').value;
@@ -79,7 +80,6 @@ var play_pattern = function(){
 var stop_playing = function(){
     window.clearTimeout(playing_interval)
 }
-
 
 
 var current_patterns = [1,1,1,1,1];

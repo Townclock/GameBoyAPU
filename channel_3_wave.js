@@ -34,6 +34,8 @@ wave_3 = {
 
   frequency: 2047, // 11 bit higher is higher frequency
   previous_frequency : 2047,
+
+  current_waveform: 0
 }
   wave_3.wave_player.buffer = wave_3.output_buffer;
   wave_3.wave_player.loop = true;
@@ -47,6 +49,12 @@ wave_3 = {
 
   wave_3.wave_player.start(0);
 
+custom_waveforms = [saw, triangle, square]
+wave_3.update_waveform = function(){
+  for (var i = 0; i < 32; i++)
+    wave_3.output_buffer.getChannelData(0)[i] = custom_waveforms[this.current_waveform][i];
+
+}
 
 wave_3.update_volume = function() {  // update the volume of this channel
     if (this.volume !== this.previous_volume){

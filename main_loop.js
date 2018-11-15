@@ -51,12 +51,9 @@ function check_apu_update(){    //the apu runs off the same clock unit of the ma
     wave_3.update_frequency();
     wave_3.check_length();
   }
+    wave_3.update_waveform();
 
 
-
-// waveform test zone!
-  for (var i = 0; i < 32; i++)
-    wave_3.output_buffer.getChannelData(0)[i] = triangle[i];
 }
 
 

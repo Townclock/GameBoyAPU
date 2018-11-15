@@ -1,6 +1,77 @@
-var interpret_channel_1 = function(){}
-var interpret_channel_2 = function(){}
-var interpret_channel_3 = function(){}
+/* key
+frequency: note octave Bn1 Cn4 D#2. . .
+volume: 0-f
+envelope_direction: 0-1 (down/up)
+envelope: 0-f
+use_length: 0 - 1
+length: 01 - 64
+sweep_direction: 0 - 1
+sweep_shift_numner: 0 - 8
+sweep_speed: 0 - 8
+*/
+var interpret_channel_1 = function(){
+    pulse_1_input = document.getElementById("ch1_"+current_step).value;
+
+    if (pulse_1_input == "-") return;
+
+    console.log(pulse_1_input.substring(0, 3));
+    console.log(square_wave_note_to_memory_value[pulse_1_input.substring(0, 3)]);
+    pulse_1.frequency_memory = square_wave_note_to_memory_value[pulse_1_input.substring(0, 3)];
+    pulse_1.volume = parseInt(pulse_1_input[3], 16);
+    pulse_1.envelope_direction = parseInt(pulse_1_input[4], 2);
+    pulse_1.envelope_number = parseInt(pulse_1_input[5], 16);
+    pulse_1.use_length = parseInt(pulse_1_input[6], 2);
+    pulse_1.sound_length_counter = parseInt(Number(pulse_1_input[7] + "" + pulse_1_input[8], 64) + 1);
+
+
+    pulse_1.sweep_direction = parseInt(pulse_1_input[9], 2);
+    pulse_1.sweep_shift_number = parseInt(pulse_1_input[10], 8);
+    pulse_1.sweep_shift_time = parseInt(pulse_1_input[11], 8);
+
+}
+/* key
+frequency: note octave Bn1 Cn4 D#2. . .
+volume: 0-f
+envelope_direction: 0-1 (down/up)
+envelope: 0-f
+use_length: 0 - 1
+length: 01 - 64
+*/
+var interpret_channel_2 = function(){
+    pulse_2_input = document.getElementById("ch2_"+current_step).value;
+
+    if (pulse_2_input == "-") return;
+
+    pulse_2.frequency_memory = square_wave_note_to_memory_value[pulse_2_input.substring(0, 3)];
+    pulse_2.volume = parseInt(pulse_2_input[3], 16);
+    pulse_2.envelope_direction = parseInt(pulse_2_input[4], 2);
+    pulse_2.envelope_number = parseInt(pulse_2_input[5], 16);
+    pulse_2.use_length = parseInt(pulse_2_input[6], 2);
+    pulse_2.sound_length_counter = parseInt(Number(pulse_2_input[7] + "" + pulse_2_input[8], 64) + 1);
+
+}
+
+/* key
+frequency: note octave Cn1 Cn4 D#2. . .
+volume: 0-3
+use_length: 0 - 1
+length: 01 - 256
+shape: 0-f  (0-2 built in currently)
+*/
+var interpret_channel_3 = function(){
+    wave_3_input = document.getElementById("ch3_"+current_step).value;
+
+    if (wave_3_input == "-") return;
+
+    console.log(wave_3_input);
+
+    wave_3.frequency = custom_wave_note_to_memory_value[wave_3_input.substring(0, 3)];
+    wave_3.volume = parseInt(wave_3_input[3], 4);
+    wave_3.use_length = parseInt(wave_3_input[4], 2);
+    wave_3.sound_length_counter = parseInt(Number(wave_3_input[5] + "" + wave_3_input[6] + wave_3_input[7], 256) + 1);
+    wave_3.current_waveform = parseInt(wave_3_input[8], 16);
+
+}
 
 
 
@@ -12,7 +83,6 @@ use_length: 0 - 1
 length: 01 - 64
 noise_preset: 00-63
 small_shit_register: 0-1
-
 */
 var interpret_channel_4 = function(){
     noise_input = document.getElementById("ch4_"+current_step).value;
@@ -23,7 +93,7 @@ var interpret_channel_4 = function(){
   console.log(noise_4.volume);
   noise_4.envelope_direction = parseInt(noise_input[1], 2);
   noise_4.envelope_number = parseInt(noise_input[2], 16);
-  noise_4.sound_length_counter = Number(noise_input[3] + "" + noise_input[4]);
+  noise_4.sound_length_counter = parseInt(Number(noise_input[3] + "" + noise_input[4]), 64)+1;
   noise_4.use_length = parseInt(noise_input[5], 2);
   noise_4.lfsr_bit_width = parseInt(noise_input[6], 2);
   noise_4.dividing_ratio = Number(0);                               // special set-up
