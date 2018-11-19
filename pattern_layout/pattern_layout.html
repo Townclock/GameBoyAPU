@@ -1,0 +1,116 @@
+<html>
+
+<head>
+
+<script type="text/JavaScript" src="../audio_context.js"></script>
+<script type="text/JavaScript" src="../pulse_wave_forms.js"></script>
+<script type="text/JavaScript" src="../channel_1_pulse.js"></script>
+<script type="text/JavaScript" src="../channel_2_pulse.js"></script>
+<script type="text/JavaScript" src="../channel_3_wave.js"></script>
+<script type="text/JavaScript" src="../channel_4_noise.js"></script>
+<script type="text/JavaScript" src="../main_loop.js"></script>
+
+
+
+
+</head>
+
+<body>
+
+
+<button id="management" onclick="set_page(id)">management</button>
+<button id="pattern_control" onclick="set_page(id)">pattern control</button>
+<button id="special_controls" onclick="set_page(id)">special controls</button>
+<button id="pattern_layout" onclick="set_page(id)">pattern layout</button>
+<hr>
+<button id="play" onclick="play_pattern()">PLAY </button>
+<button id="stop" onclick="stop_playing()">STOP </button>
+<span> TEMPO</span><input id="tempo" type="number" min=1 max=2000 step=1 value=120></input>
+<span> PATTERNS</span><input id="patterns_in_song" type="number" min=1 max =100 step=1 value=60
+onclick="update_patterns(value)"> </input>
+<div id="management_page">
+</div>
+<div id="pattern_layout_page">
+    <table id="pattern_table"></table>
+</div>
+<div id="special_controls_page">
+</div>
+
+<div id="pattern_control_page">
+
+<hr>
+
+<table id="control_table">
+</table>
+
+
+</body>
+
+<style> 
+    table {
+        width: 100%
+    }
+</style>
+
+<p> type="text/JavaScript" src="pattern_data.js</p>
+<script type="text/JavaScript" src="note_input_frequency_tables.js"></script>
+<script type="text/JavaScript" src="pattern_control_initialize.js"></script>
+<script type="text/JavaScript" src="input_interpreter.js"></script>
+</div>
+
+<script>
+var current_page = 'pattern_layout'
+var pages = ["pattern_layout", "management", "special_controls", "pattern_control"]
+
+function set_page(page){
+    update_patterns(patterns_used);
+    fill_table()
+
+    current_page = page;
+    for (var i = 0; i < 4; i++)
+    {
+        document.getElementById(pages[i] + "_page").style.visibility = 'hidden';
+        console.log(pages[i])
+        document.getElementById(pages[i] + "_page").style.height = '0px';
+    }
+    document.getElementById(page + "_page").style.visibility = 'visible';
+        document.getElementById(page + "_page").style.height = 'auto';
+}
+
+pattern_layout = [[],[],[],[],[]];
+for (var i = 0; i < 100; i++){
+    for (var j = 1; j < 5; j++)
+    pattern_layout[j][i] = '1'
+}
+
+var patterns_used = 60;
+var max_patterns = 100;
+function update_patterns(num) {patterns_used = num;
+
+        var table_header = "<tr><td>Pulse 1"+
+        "</td><td>Pulse 2"+
+        "</td><td>Waveform"+
+        "</td><td>Noise"+
+        "</td></tr>";
+
+        var table_contents = "";
+        for (var j = 0; j < patterns_used; j++){
+            table_contents = table_contents + "<tr id=row_pl_" + j + ">" +
+            "<td><input type='text' onchange='patternLayoutSetValue(1, "+j+")' id='ch1_pl_" + j + "' value='" + pattern_layout[1][j] + "'></input></td>"+
+            "<td><input type='text' onchange='patternLayoutSetValue(2, "+j+")' id='ch2_pl_" + j + "' value='" + pattern_layout[2][j] + "'></input></td>"+
+            "<td><input type='text' onchange='patternLayoutSetValue(3, "+j+")' id='ch3_pl_" + j + "' value='" + pattern_layout[3][j] + "'></input></td>"+
+            "<td><input type='text' onchange='patternLayoutSetValue(4, "+j+")' id='ch4_pl_" + j + "' value='" + pattern_layout[4][j] + "'></input></td>"+
+            "</tr>"
+        }
+        document.getElementById('pattern_table').innerHTML = table_header + table_contents;
+}
+var patternLayoutSetValue = function(channel, note){
+        var new_note = (document.getElementById("ch" +channel+"_pl_" +  note).value);
+        pattern_layout[channel][note] = new_note;
+}
+
+
+update_patterns(patterns_used);
+</script>
+
+</html>
