@@ -75,6 +75,8 @@ function set_page(page){
     }
     document.getElementById(page + "_page").style.visibility = 'visible';
         document.getElementById(page + "_page").style.height = 'auto';
+
+    if (page == "patten_layout") {pattern_step = -1}
 }
 
 pattern_layout = [[],[],[],[],[]];

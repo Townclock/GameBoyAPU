@@ -1,5 +1,4 @@
 var initialize = false;
-var custom_waveforms = [saw, triangle, square];
 var fill_table = function(current_pattern) {
     if (initialize){
         current_patterns[1] = document.getElementById('pattern_1').value;
@@ -59,7 +58,7 @@ var tempo;
 var playing_interval;
 var play_pattern = function(){
     window.clearTimeout(playing_interval)
-    pattern_step = 0
+    pattern_step = -1
     current_step = 0; //setting this up for visualyzing either
     tempo = document.getElementById('tempo').value;
     playing_interval = setInterval(function(){
@@ -76,9 +75,11 @@ var play_pattern = function(){
         if ( current_page == "pattern_layout" && current_step == 0)
         {
         fill_table()
-        document.getElementById('row_pl_' + pattern_step).style.backgroundColor = "";
-        document.getElementById('row_pl_' + pattern_step).style.color = "";
-            console.log(pattern_step)
+        if (pattern_step != -1) {
+            document.getElementById('row_pl_' + pattern_step).style.backgroundColor = "";
+            document.getElementById('row_pl_' + pattern_step).style.color = "";
+        }
+        console.log(pattern_step)
             pattern_step = ++pattern_step % patterns_used;
             current_patterns[1] = pattern_layout[1][pattern_step]
             current_patterns[2] = pattern_layout[2][pattern_step]
