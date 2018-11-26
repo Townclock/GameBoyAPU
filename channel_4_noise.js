@@ -45,6 +45,23 @@ noise_4 = {
 
 var linear_feedback_shift_register = [1,1,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
+
+
+noise_4.check_frequency = function(){
+  if (noise_4.dividing_ratio == 0) {noise_4.dividing_ratio = 0.5;}
+
+  noise_4.noise_player.playbackRate.value = 11.8886167801 / noise_4.dividing_ratio /Math.pow(2, noise_4.shift_clock_frequency);
+    if (elapsed_cycles % (8 * noise_4.dividing_ratio * Math.pow(2, noise_4.shift_clock_frequency+1)) == 0){
+      noise_4.output_buffer.getChannelData(0)[noise_4.write_loc + 1] = linear_feedback_shift_register[0];
+      noise_4.write_loc++;
+      if (noise_4.write_loc >=  1048576) {noise_4.write_loc = 0;};
+
+      linear_feedback_shift_register.push(linear_feedback_shift_register[1] !==
+      linear_feedback_shift_register.shift()? 1: 0);
+      if (noise_4.lfsr_bit_width) {linear_feedback_shift_register[6] = linear_feedback_shift_register[14]}
+    }
+}
+
 noise_4.update_volume = function() {  // update the volume of this channel
     if (this.volume !== this.previous_volume){
       this.previous_volume = this.volume;

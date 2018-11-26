@@ -34,8 +34,36 @@ onclick="update_patterns(value)"> </input>
     <table id="pattern_table"></table>
 </div>
 <div id="special_controls_page">
-</div>
+    <h3> Special controls for creating custom waveforms </h3>
+    <select id="custom_waveform" onchange="change_current_custom_waveform(value)">
+    </select>
 
+    <textarea id="custom_waveform_controller" onchange="update_custom_waveform(value)" rows='1' cols='32' type=textarea maxlength=32 size=32></textarea>
+
+
+    <button onclick="play_custom_c(1)">C1</button>
+    <button onclick="play_custom_c(2)">C2</button>
+    <button onclick="play_custom_c(3)">C3</button>
+    <button onclick="play_custom_c(4)">C4</button>
+    <button onclick="play_custom_c(5)">C5</button>
+    <button onclick="play_custom_c(6)">C6</button>
+    <button onclick="play_custom_c(7)">C7</button>
+    <button onclick="wave_3.volume = 0;"> STOP </button>
+    <canvas id="custom_wave_visualizer" width=320 height=240>
+    </canvas>
+
+<hr>
+
+    <h3> Special controls for creating custom noise channel settings </h3>
+
+    <select id="custom_noise" onchange="change_current_custom_noise(value)">
+    </select>
+
+    <textarea id="custom_noise_controller" onchange="update_custom_noise(value)" rows='1' cols='3' type=textarea maxlength=3 size=3></textarea> <span> SRC (S: 0-f shift clock frequency, R: 0-7 Dividing ration of frequency, C: 0-1 effective size of LFSR 15 || 7)
+<br>
+    <button onclick="play_custom_noise()">PLAY</button>
+    <button onclick="noise_4.volume = 0;"> STOP </button>
+</div>
 <div id="pattern_control_page">
 
 <hr>
@@ -50,13 +78,20 @@ onclick="update_patterns(value)"> </input>
     table {
         width: 100%
     }
+    textarea {
+        resize: none;
+    }
+    canvas {
+        border: 1px solid black;
+    }
 </style>
 
 <p> type="text/JavaScript" src="pattern_data.js</p>
 <script type="text/JavaScript" src="note_input_frequency_tables.js"></script>
 <script type="text/JavaScript" src="pattern_control_initialize.js"></script>
-<script type="text/JavaScript" src="input_interpreter.js"></script>
 </div>
+<script type="text/JavaScript" src="input_interpreter.js"></script>
+<script type="text/JavaScript" src="special_control.js"></script>
 
 <script>
 var current_page = 'pattern_layout'
@@ -64,6 +99,12 @@ var pages = ["pattern_layout", "management", "special_controls", "pattern_contro
 
 function set_page(page){
     update_patterns(patterns_used);
+    pulse_1.volume = 0;
+    pulse_2.volume = 0;
+    wave_3.volume = 0;
+    noise_4.volume = 0;
+
+
     fill_table()
 
     current_page = page;
