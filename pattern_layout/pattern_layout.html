@@ -10,6 +10,8 @@
 <script type="text/JavaScript" src="../channel_4_noise.js"></script>
 <script type="text/JavaScript" src="../main_loop.js"></script>
 
+<script type="text/JavaScript" src="json_management.js"></script>
+
 
 
 
@@ -19,17 +21,24 @@
 
 
 <button id="management" onclick="set_page(id)">management</button>
-<button id="pattern_control" onclick="set_page(id)">pattern control</button>
 <button id="special_controls" onclick="set_page(id)">special controls</button>
 <button id="pattern_layout" onclick="set_page(id)">pattern layout</button>
+<button id="pattern_control" onclick="set_page(id)">pattern control</button>
 <hr>
 <button id="play" onclick="play_pattern()">PLAY </button>
 <button id="stop" onclick="stop_playing()">STOP </button>
 <span> TEMPO</span><input id="tempo" type="number" min=1 max=2000 step=1 value=120></input>
 <span> PATTERNS</span><input id="patterns_in_song" type="number" min=1 max =100 step=1 value=60
-onclick="update_patterns(value)"> </input>
+onchange="update_patterns(value)"> </input>
+
 <div id="management_page">
+<h3>Save and Load Project JSON Here</h3>
+<button id="download" onclick="save()"> Generate JSON </button><a id="download_link" download="GameBoySound.json">Game Boy PAPU Project</a></a>
+<hr>
+<textarea id="load"></textarea> <button onclick="load_json()">Load JSON </button>
 </div>
+
+
 <div id="pattern_layout_page">
     <table id="pattern_table"></table>
 </div>

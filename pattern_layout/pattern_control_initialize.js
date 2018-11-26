@@ -105,10 +105,10 @@ var stop_playing = function(){
 
 var current_patterns = [1,1,1,1,1];
 
-var patterns_available = ['1', '2', '3', '4', '5', '6', '7', '8', '9',
+var patterns_available = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
                           'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 
                           'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 
-                          's', 't', 'u', 'w', 'x', 'y', 'z' ] 
+                          's', 't', 'u', 'v', 'w', 'x', 'y', 'z' ]
 
 var patterns = []
         patterns[1] = {}
@@ -117,7 +117,7 @@ var patterns = []
         patterns[4] = {}
 
     for (var j = 1; j < 5; j++){
-        for (var i = 0; i < 34; i++){
+        for (var i = 0; i < 6; i++){
         patterns[j][patterns_available[i]] = [];
             for (var k=0; k < 32; k++)
                 patterns[j][patterns_available[i]][k] = '-' ;//15; //patterns_available[i] + k
