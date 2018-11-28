@@ -117,7 +117,7 @@ var patterns = []
         patterns[4] = {}
 
     for (var j = 1; j < 5; j++){
-        for (var i = 0; i < 6; i++){
+        for (var i = 0; i < 32; i++){
         patterns[j][patterns_available[i]] = [];
             for (var k=0; k < 32; k++)
                 patterns[j][patterns_available[i]][k] = '-' ;//15; //patterns_available[i] + k
