@@ -70,7 +70,6 @@ var play_pattern = function(){
         interpret_channel_3(); 
         interpret_channel_4(); 
 
-        current_step = ++current_step % 32;
 
         if ( current_page == "pattern_layout" && current_step == 0)
         {
@@ -89,6 +88,7 @@ var play_pattern = function(){
         document.getElementById('row_pl_' + pattern_step).style.backgroundColor = "#87678c";
         document.getElementById('row_pl_' + pattern_step).style.color = "white";
         }
+        current_step = ++current_step % 32;
 
 
 
