@@ -58,13 +58,15 @@ var tempo;
 var playing_interval;
 var play_pattern = function(){
     window.clearTimeout(playing_interval)
-    pattern_step = -1
-    current_step = 0; //setting this up for visualyzing either
+    pattern_step = 0;
+    current_step = -1; //setting this up for visualyzing either
     tempo = document.getElementById('tempo').value;
     playing_interval = setInterval(function(){
+    if (current_step >= 0){
         document.getElementById('row_' + current_step).style.backgroundColor = "";
         document.getElementById('row_' + current_step).style.color = "";
-
+    }
+        current_step = ++current_step % 32;
         interpret_channel_1(); 
         interpret_channel_2(); 
         interpret_channel_3(); 
@@ -74,10 +76,8 @@ var play_pattern = function(){
         if ( current_page == "pattern_layout" && current_step == 0)
         {
         fill_table()
-        if (pattern_step != -1) {
             document.getElementById('row_pl_' + pattern_step).style.backgroundColor = "";
             document.getElementById('row_pl_' + pattern_step).style.color = "";
-        }
         console.log(pattern_step)
             pattern_step = ++pattern_step % patterns_used;
             current_patterns[1] = pattern_layout[1][pattern_step]
@@ -88,7 +88,6 @@ var play_pattern = function(){
         document.getElementById('row_pl_' + pattern_step).style.backgroundColor = "#87678c";
         document.getElementById('row_pl_' + pattern_step).style.color = "white";
         }
-        current_step = ++current_step % 32;
 
 
 
